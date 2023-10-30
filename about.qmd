@@ -20,4 +20,5 @@ sidebar: false
 R, Python, Microsoft Office, AutoCAD
 
 # Hobbies
+
 National and International Politics
