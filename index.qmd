@@ -1,5 +1,5 @@
 ---
-title: "Welcome to My Analytics Lab"
+title: "Welcome to Workplace!"
 sidebar: false 
 ---
 
@@ -9,4 +9,4 @@ This is my personal webpage.
 
 Please stay tuned to follow my works on data analytics, projects, assignments and more.
 
-This is our template.
+

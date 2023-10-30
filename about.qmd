@@ -5,26 +5,19 @@ sidebar: false
 
 # Education
 
--   B.S., Industrial Engineering, Hacettepe University, Turkey, 20xx - ongoing.
+-   B.S., Industrial Engineering, Hacettepe University, Turkey, 2020 - ongoing.
 
 # Work Experience
 
-## Employements
-
-1.  Firm xxx, position xx, year xxx
-
-2.  Firm yyy, position yyy, year yyy
-
 ## Internships
 
-1.  Firm aaa, position xx, year xxx
+1.  Intertech, Business Analyst, July/2023-September/2023
 
-2.  Firm bbb, position yyy, year yyy
-
-# Projects
+2.  Selnikel, Production Planning and Material Managemenet/Project Management Intern, July/2023
 
 # Competencies
 
-R, Quarto, Git, Python
+R, Python, Microsoft Office, AutoCAD
 
 # Hobbies
+National and International Politics
