@@ -46,7 +46,7 @@
     "href": "assignments/assignment-1.html",
     "title": "Assignment 1",
     "section": "",
-    "text": "My first assignment has three parts.\n\n\n\n\nOne of the main difference between these two popular languages is indexing the elements. R uses 1 as base index number, but in python indexing starts with 0.\nFor example:\n\na &lt;- c(4, 5, 6, 7)\nfirst_element_a &lt;- a[1]\nsecond_element_a &lt;- a[2]\nprint(first_element_a)\n\n[1] 4\n\nprint(second_element_a)\n\n[1] 5\n\n\n\nb = [4, 5, 6, 7]\nfirst_element_b = b[0]\nsecond_element_b = b[1]\nprint(first_element_b)\n\n4\n\nprint(second_element_b)\n\n5"
+    "text": "My first assignment has three parts.\n\n\n\n\nOne of the main difference between these two popular languages is indexing the elements. R uses 1 as base index number, but in python indexing starts with 0.\nFor example:\n\na &lt;- c(4, 5, 6, 7)\nfirst_a &lt;- a[1]\nsecond_a &lt;- a[2]\nprint(first_a)\n\n[1] 4\n\nprint(second_a)\n\n[1] 5"
   },
   {
     "objectID": "assignments.html",
@@ -67,6 +67,6 @@
     "href": "assignments/assignment-1.html#b-differences-betwwen-r-and-python",
     "title": "Assignment 1",
     "section": "",
-    "text": "One of the main difference between these two popular languages is indexing the elements. R uses 1 as base index number, but in python indexing starts with 0.\nFor example:\n\na &lt;- c(4, 5, 6, 7)\nfirst_element_a &lt;- a[1]\nsecond_element_a &lt;- a[2]\nprint(first_element_a)\n\n[1] 4\n\nprint(second_element_a)\n\n[1] 5\n\n\n\nb = [4, 5, 6, 7]\nfirst_element_b = b[0]\nsecond_element_b = b[1]\nprint(first_element_b)\n\n4\n\nprint(second_element_b)\n\n5"
+    "text": "One of the main difference between these two popular languages is indexing the elements. R uses 1 as base index number, but in python indexing starts with 0.\nFor example:\n\na &lt;- c(4, 5, 6, 7)\nfirst_a &lt;- a[1]\nsecond_a &lt;- a[2]\nprint(first_a)\n\n[1] 4\n\nprint(second_a)\n\n[1] 5"
   }
 ]

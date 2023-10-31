@@ -16,16 +16,8 @@ For example:
 
 ```{r}
 a <- c(4, 5, 6, 7)
-first_element_a <- a[1]
-second_element_a <- a[2]
-print(first_element_a)
-print(second_element_a)
-```
-
-```{python}
-b = [4, 5, 6, 7]
-first_element_b = b[0]
-second_element_b = b[1]
-print(first_element_b)
-print(second_element_b)
+first_a <- a[1]
+second_a <- a[2]
+print(first_a)
+print(second_a)
 ```
