@@ -21,6 +21,10 @@ second_element_a <- a[2]
 print(first_element_a)
 ```
 
-`{'''{python} b = [4, 5, 6, 7] first element_b = b[0] second_element_b = b[1] print(first_element_b)`
-
-My first assignment has two parts.
+```{python}
+b = [4, 5, 6, 7]
+first_element_b = b[0]
+second_element_b = b[1]
+print(first_element_b)
+print(second_element_b)
+```
