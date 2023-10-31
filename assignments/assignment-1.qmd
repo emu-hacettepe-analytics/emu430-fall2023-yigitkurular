@@ -4,12 +4,23 @@ title: "Assignment 1"
 
 # Assignment 1
 
+My first assignment has three parts.
+
+## b) Differences betwwen R and Python
+
+### Indexing Elements
+
+One of the main difference between these two popular languages is indexing the elements. R uses 1 as base index number, but in python indexing starts with 0.
+
+For example:
+
 ```{r}
-1 + 1
+a <- c(4, 5, 6, 7)
+first_element_a <- a[1]
+second_element_a <- a[2]
+print(first_element_a)
 ```
 
+`{'''{python} b = [4, 5, 6, 7] first element_b = b[0] second_element_b = b[1] print(first_element_b)`
+
 My first assignment has two parts.
-
-## (a)
-
-## (b)
