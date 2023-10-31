@@ -15,6 +15,7 @@ One of the main difference between these two popular languages is indexing the e
 For example:
 
 ```{r}
+# In R
 a <- c(4, 5, 6, 7)
 first_a <- a[1]
 second_a <- a[2]
@@ -23,6 +24,7 @@ print(second_a)
 ```
 
 ```{python}
+# In Python
 b = [4, 5, 6, 7]
 first_b = b[0]
 second_b = b[1]
