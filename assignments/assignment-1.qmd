@@ -19,6 +19,7 @@ a <- c(4, 5, 6, 7)
 first_element_a <- a[1]
 second_element_a <- a[2]
 print(first_element_a)
+print(second_element_a)
 ```
 
 ```{python}
