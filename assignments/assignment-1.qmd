@@ -68,3 +68,47 @@ turkish_cities= [["Izmır", "4.300.000"], ["Istanbul", "16.000.000"], ["Ankara",
 df_turkish_cities= pd.DataFrame(turkish_cities,columns= ["city_name", "city_population"])
 print(df_turkish_cities)
 ```
+
+## c) NA Values
+
+Our main dataset with NA values is:
+
+```{r}
+library("dslabs")
+data(na_example)
+print(na_example)
+total_NA_Value <- sum(is.na(na_example))
+print(total_NA_Value)
+```
+
+and the number of NA values is:
+
+```{r}
+library("dslabs")
+data(na_example)
+total_NA_Value <- sum(is.na(na_example))
+print(total_NA_Value)
+```
+
+Our new dataset without NA values is:
+
+```{r}
+library("dslabs")
+data("na_example")
+non_NA_Dataframe <- na_example
+non_NA_Dataframe[is.na(na_example)] <- 0
+print(non_NA_Dataframe)
+total_NA_Value <- sum(is.na(non_NA_Dataframe))
+
+```
+
+and the number of NA values is:
+
+```{r}
+library("dslabs")
+data("na_example")
+non_NA_Dataframe <- na_example
+non_NA_Dataframe[is.na(na_example)] <- 0
+total_NA_Value <- sum(is.na(non_NA_Dataframe))
+print(total_NA_Value)
+```
