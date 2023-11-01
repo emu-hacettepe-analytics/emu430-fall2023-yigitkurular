@@ -78,7 +78,6 @@ library("dslabs")
 data(na_example)
 print(na_example)
 total_NA_Value <- sum(is.na(na_example))
-print(total_NA_Value)
 ```
 
 and the number of NA values is:
@@ -98,7 +97,6 @@ data("na_example")
 non_NA_Dataframe <- na_example
 non_NA_Dataframe[is.na(na_example)] <- 0
 print(non_NA_Dataframe)
-total_NA_Value <- sum(is.na(non_NA_Dataframe))
 
 ```
 
