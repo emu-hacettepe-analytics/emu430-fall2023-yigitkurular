@@ -6,7 +6,7 @@ title: "Assignment 1"
 
 My first assignment has three parts.
 
-## b) Differences betwwen R and Python
+## b) Differences between R and Python
 
 ### Indexing Elements
 
@@ -30,4 +30,40 @@ first_b = b[0]
 second_b = b[1]
 print(first_b)
 print(second_b)
+```
+
+## Syntax Differences
+
+One of the other difference is syntax. For example, to assign an element in R we use "\<-" but, in Python it is "=".
+
+```{R}
+a <- 1
+b <- 2
+summation <- a + b
+print(summation)
+```
+
+```{python}
+x = 2 
+y = 3
+summation = x + y
+print(summation)
+```
+
+## Creating Data Frame
+
+R has special data structures like factors and data frames, but in python data structures differs like lists, dictionaries and pandas data frames.
+
+```{r}
+Turkish_cities <- data.frame(
+                            city_name = c("Izmir", "Istanbul", "Ankara"),
+                            city_population = c("4.300.000", "16.000.000", "5.700.000")
+                            )
+```
+
+```{python}
+import pandas as pd 
+turkish_cities= [["Izmır", 4.300.000], ["Istanbul", 16.000.000], ["Ankara", 5.700.000]]
+df= pd.dataframe(turkish_cities,columns= ["city_name", city_population])
+
 ```
