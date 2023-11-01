@@ -212,6 +212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#indexing-elements" id="toc-indexing-elements" class="nav-link" data-scroll-target="#indexing-elements">Indexing Elements</a></li>
   </ul></li>
   <li><a href="#syntax-differences" id="toc-syntax-differences" class="nav-link" data-scroll-target="#syntax-differences">Syntax Differences</a></li>
+  <li><a href="#creating-data-frame" id="toc-creating-data-frame" class="nav-link" data-scroll-target="#creating-data-frame">Creating Data Frame</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -299,6 +300,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>5</code></pre>
 </div>
+</div>
+</section>
+<section id="creating-data-frame" class="level2">
+<h2 class="anchored" data-anchor-id="creating-data-frame">Creating Data Frame</h2>
+<p>R has special data structures like factors and data frames, but in python data structures differs like lists, dictionaries and pandas data frames.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Turkish_cities <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">city_name =</span> <span class="fu">c</span>(<span class="st">"Izmir"</span>, <span class="st">"Istanbul"</span>, <span class="st">"Ankara"</span>),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">city_population =</span> <span class="fu">c</span>(<span class="st">"4.300.000"</span>, <span class="st">"16.000.000"</span>, <span class="st">"5.700.000"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>turkish_cities<span class="op">=</span> [[<span class="st">"Izmır"</span>, <span class="st">"4.300.000"</span>], [<span class="st">"Istanbul"</span>, <span class="st">"16.000.000"</span>], [<span class="st">"Ankara"</span>, <span class="st">"5.700.000"</span>]]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span> pd.DataFrame(turkish_cities,columns<span class="op">=</span> [<span class="st">"city_name"</span>, <span class="st">"city_population"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
