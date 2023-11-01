@@ -77,7 +77,6 @@ Our main dataset with NA values is:
 library("dslabs")
 data(na_example)
 print(na_example)
-total_NA_Value <- sum(is.na(na_example))
 ```
 
 and the number of NA values is:
