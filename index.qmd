@@ -1,5 +1,5 @@
 ---
-title: "Welcome to My Workplace!"
+title: "Welcome to My Analytics Lab!"
 sidebar: false 
 ---
 
