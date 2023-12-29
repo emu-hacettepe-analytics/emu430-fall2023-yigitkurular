@@ -47,36 +47,21 @@ for (url in sum_url) {
   years <- page %>% html_nodes('.sc-43986a27-7.dBkaPT.dli-title-metadata') %>% html_text() %>% str_extract("\\d{4}") %>% as.numeric()
   year <- append(year, years)
   
-  # To convert durations 
-  convert_duration_to_minutes <- function(duration_string) {
-    
-    hours <- as.numeric(str_extract(duration_string, "\\d+\\s?h"))
-    minutes <- as.numeric(str_extract(duration_string, "\\d+\\s?m"))
-    seconds <- as.numeric(str_extract(duration_string, "\\d+\\s?s"))
+ # To extract durations
+  durations <- page %>% html_nodes('.sc-43986a27-7.dBkaPT.dli-title-metadata') %>% html_text()
+  
+  convert_to_minutes <- function(duration) {
+    hours <- as.numeric(str_extract(duration, "\\d+(?=h)"))
+    minutes <- as.numeric(str_extract(duration, "\\d+(?=m)"))
+    seconds <- as.numeric(str_extract(duration, "\\d+\\s?s"))
     
     
     hours <- ifelse(is.na(hours), 0, hours)
     minutes <- ifelse(is.na(minutes), 0, minutes)
     seconds <- ifelse(is.na(seconds), 0, seconds)
     
-    
-    total_minutes <- hours * 60 + minutes + seconds / 60
-    
-    return(total_minutes)
-  }
-  # To extract durations
-  durations <- page %>% html_nodes('.sc-43986a27-7.dBkaPT.dli-title-metadata') %>% html_text()
-  
-  convert_to_minutes <- function(duration) {
-    hours <- as.numeric(str_extract(duration, "\\d+(?=h)"))
-    minutes <- as.numeric(str_extract(duration, "\\d+(?=m)"))
-    
-    
-    hours <- ifelse(is.na(hours), 0, hours)
-    minutes <- ifelse(is.na(minutes), 0, minutes)
-    
-    total_minutes <- hours * 60 + minutes
-    return(total_minutes)
+    total_min <- hours * 60 + minutes + seconds / 60
+    return(total_min)
   }
   
   durations_in_minutes <- lapply(durations, function(d) {
