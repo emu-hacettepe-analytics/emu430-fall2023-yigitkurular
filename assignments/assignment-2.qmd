@@ -2,8 +2,226 @@
 title: "Assignment 2"
 ---
 
-# Assignment 2
+# Web Scraping of Turkish Movies from IMDb
+
+## 1. Extracting URL
 
 ```{r}
-1 + 1
+library(tidyverse)
+library(stringr)
+library(rvest)
+
+url_1 <- "https://m.imdb.com/search/title/?title_type=feature&release_date=2010-01-01,2023-12-31&num_votes=2500,&country_of_origin=TR&count=250" 
+url_2 <- "https://m.imdb.com/search/title/?title_type=feature&release_date=,2009-12-31&num_votes=2500,&country_of_origin=TR&count=250"
+sum_url <- c(url_1, url_2)
 ```
+
+## 2. Web Scraping of Movies from URLs
+
+```{r}
+library(tidyverse)
+library(stringr)
+library(rvest)
+
+url_1 <- "https://m.imdb.com/search/title/?title_type=feature&release_date=2010-01-01,2023-12-31&num_votes=2500,&country_of_origin=TR&count=250" 
+url_2 <- "https://m.imdb.com/search/title/?title_type=feature&release_date=,2009-12-31&num_votes=2500,&country_of_origin=TR&count=250"
+sum_url <- c(url_1, url_2)
+
+title <- c()
+year <- c()
+duration <- c()
+rating <- c()
+vote <- c()
+
+for (url in sum_url) {
+  page <- read_html(url)
+  
+  # To extract names
+  title_names <- page %>% html_nodes('.ipc-title__text') %>% html_text()
+  title_names <- tail(head(title_names, -1), -1)
+  title_names <- str_split(title_names, " ", n = 2)
+  title_names <- unlist(lapply(title_names, function(x) { x[2] }))
+  title <- append(title, title_names)
+  
+  # To extract years
+  years <- page %>% html_nodes('.sc-43986a27-7.dBkaPT.dli-title-metadata') %>% html_text() %>% str_extract("\\d{4}") %>% as.numeric()
+  year <- append(year, years)
+  
+  # To convert durations 
+  convert_duration_to_minutes <- function(duration_string) {
+    
+    hours <- as.numeric(str_extract(duration_string, "\\d+\\s?h"))
+    minutes <- as.numeric(str_extract(duration_string, "\\d+\\s?m"))
+    seconds <- as.numeric(str_extract(duration_string, "\\d+\\s?s"))
+    
+    
+    hours <- ifelse(is.na(hours), 0, hours)
+    minutes <- ifelse(is.na(minutes), 0, minutes)
+    seconds <- ifelse(is.na(seconds), 0, seconds)
+    
+    
+    total_minutes <- hours * 60 + minutes + seconds / 60
+    
+    return(total_minutes)
+  }
+  # To extract durations
+  durations <- page %>% html_nodes('.sc-43986a27-7.dBkaPT.dli-title-metadata') %>% html_text()
+  
+  convert_to_minutes <- function(duration) {
+    hours <- as.numeric(str_extract(duration, "\\d+(?=h)"))
+    minutes <- as.numeric(str_extract(duration, "\\d+(?=m)"))
+    
+    
+    hours <- ifelse(is.na(hours), 0, hours)
+    minutes <- ifelse(is.na(minutes), 0, minutes)
+    
+    total_minutes <- hours * 60 + minutes
+    return(total_minutes)
+  }
+  
+  durations_in_minutes <- lapply(durations, function(d) {
+    d <- str_extract(d, "\\d+h( \\d+m)?|\\d+m|\\d+") %>% str_extract("(?<=^.{4}).*")
+    convert_to_minutes(d)
+  })
+  
+  durations <- unlist(durations_in_minutes)
+  duration <- append(duration, durations)
+  
+  # To extract ratings
+  ratings <- page %>% html_nodes(".sc-43986a27-1.fVmjht") %>% html_text() %>% str_sub(1, 3) %>% as.numeric()
+  rating <- append(rating, ratings)
+  
+  # To extract votes
+  votes <- page %>% html_nodes(".sc-53c98e73-0.kRnqtn") %>% html_text() %>% str_extract_all("\\d+") %>% sapply(function(x) as.numeric(paste(x, collapse = "")))
+  vote <- append(vote, votes)
+  
+}
+
+movies_df <- data.frame(title, year, duration, rating, vote)
+head(movies_df)
+```
+
+## 3. Analysis on Dataset
+
+```{r}
+movies_df <- movies_df[order(-movies_df$rating), ]
+best_5_movies <- head(movies_df, 5)
+print("Best 5 Movies:")
+print(best_5_movies)
+```
+
+I think it would be disrespectful to criticize that movies. Each of them starred cult actors and actresses who have contributed to Turkish cinema for years. Maybe the only comment we can make is the type of second "movie". As you know, it's not a movie, it's recorded stand-up show, but of course it does not doesn't change the fact that it is one of the best examples of its kind.
+
+```{r}
+movies_df <- movies_df[order(-movies_df$rating), ]
+worst_5_movies <- tail(movies_df, 5)
+print("Worst 5 Movies:")
+print(worst_5_movies)
+```
+
+Actually, I do not have a specific comment for that movies. Especially for some of them. I don't want to get in trouble :D
+
+```{r}
+movies_df %>% filter(title == "Aile Arasinda" | title == "Babam ve Oglum" | title == "G.O.R.A." | title == "Pek Yakinda" | title == "Beyaz Melek") %>% arrange(desc(rating))
+```
+
+Since I had to choose 5 movies, these are the first ones that come to my mind. I cannot say that they're my favorites. To comment: Babam ve Oglum is a really emotional movie, as you know. I cryevery time I watched it, especially in one scene. You know that scene... If I need to comment about the Aile Arasinda: As a person who watched everything produced by Gulse Birsel, it is a comedy movie that I love very much. Finally, Beyaz Melek is a movie I watched in my childhood and I think a child should not watch it. It can cause a kind of trauma. Fortunatelly, it didn't happen to me.
+
+### c) Number of Movies by Years
+
+```{r}
+movie_count_by_year <- movies_df %>%
+  group_by(year) %>%
+  summarise(count = n())
+
+ggplot(movie_count_by_year, aes(x = year, y = count)) + geom_point(size = 1) + labs(title = "Number of Movies by Year", x = "Year", y = "Number of Movies") 
+```
+
+As you can see, number of movies produces significantly increased in last 20 years. Some of the reasons for this may be competition in the sector, digitalization and globalization in the media.
+
+### Average Ratings by Years
+
+```{r}
+ratings_by_year <- movies_df %>% group_by(year) %>% summarise(average_rating = mean(rating))
+
+ggplot(ratings_by_year, aes(x = year, y = average_rating)) + geom_point(size = 1) + labs(title = "Average Ratings by Year", x = "Year", y = "Average Rating")
+```
+
+As you can see, we are facing with an interesting result. I just mentioned that the number of movies by years increased, and we talked about some reasons for that. In this graph, we also can see some results of that reasons. The increasing number of movies have clearly reduced the ratings.
+
+### d) Correlation between Votes and Ratings
+
+```{r}
+ggplot(movies_df, aes(x = vote, y = rating)) + geom_point() + labs(x = "Votes", y = "Ratings")
+```
+
+To be honest, I do not have an idea why the graph looks like that. Maybe only comment I can say that highly liked and hated movies unite society and increase the number of votes.
+
+### Correlation between Duration and Rating
+
+```{r}
+ggplot(movies_df, aes(x = duration, y = rating)) + geom_point() + labs(x = "Duration (minutes)", y = "Rating") 
+```
+
+In that graph, we see that the distribution of movie durations is generally of a similar value. But I cannot say any relationship between rating and duration.
+
+## 4. Different Analysis
+
+```{r}
+library(tidyverse)
+library(stringr)
+library(rvest)
+
+url_new <- "https://www.imdb.com/search/title/?groups=top_1000&country_of_origin=TR" 
+
+title_new <- c()
+year_new <- c()
+
+for (url in url_new) {
+  page <- read_html(url)
+  
+  # To extract titles
+  title_names_new <- page %>% html_nodes('.ipc-title__text') %>% html_text()
+  title_names_new <- tail(head(title_names_new, -1), -1)
+  title_names_new <- str_split(title_names_new, " ", n = 2)
+  title_names_new <- unlist(lapply(title_names_new, function(x) { x[2] }))
+  title_new <- append(title_new, title_names_new)
+  
+  # To extract years
+  years_new <- page %>% html_nodes('.sc-43986a27-7.dBkaPT.dli-title-metadata') %>% html_text() %>% str_extract("\\d{4}") %>% as.numeric()
+  year_new <- append(year_new, years_new)
+  
+}
+
+movies_df_new <- data.frame(title_new, year_new)
+movies_df_new
+```
+
+### Join Operations with Initial Dataframe
+
+```{r}
+library(dplyr)
+result_df <- left_join(movies_df_new, movies_df, by = c("title_new" = "title"))
+print(result_df)
+```
+
+### Ordering by Rank
+
+```{r}
+library(dplyr)
+ranked_movies_joined <- result_df %>% arrange(desc(rating)) %>% head(11)
+print(ranked_movies_joined)
+
+```
+
+And our ranked initial data frame;
+
+```{r}
+library(dplyr)
+ranked_movies_initial <- movies_df %>% arrange(desc(rating)) %>% head(11)
+print(ranked_movies_initial)
+```
+
+## References
+
+In some parts of my codelines, I got help from AI and several websites. To explain them, to use use stringr package I reviewed some websites to learn which functions it have, and how I can use them. Finally, with AI I gave my codelines to ChatGPT and Bing Copilot, and asked for help on how to combine them (For example: Duration operations, and using stringr package functions to do string processing in that codelines).
